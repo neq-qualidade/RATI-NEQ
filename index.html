@@ -328,6 +328,10 @@ svg.viz [data-tip]:hover{opacity:.82}
       <div><b>Inspetor</b><span>Arquivo gerado aqui. Preenche, gera o PDF, salva a visita na pasta da base e vê o painel. Critérios e logo travados.</span></div>
       <div><b>Pasta da base (SharePoint)</b><span>É ela que controla o acesso de fato. Inspetores: permissão de edição (Contribuir). Administradores: controle total. Power BI: leitura.</span></div>
     </div>
+    <div class="autolbl"><span class="lbl">Inspetores</span></div>
+    <p class="hint">Lista que aparece no campo “Inspetor responsável”; o cargo é preenchido sozinho. Sem nenhum nome na lista, o campo fica livre para digitar. Depois de alterar, gere de novo o index.html / arquivo do inspetor.</p>
+    <div class="tbl-wrap"><table id="tblInsp"></table></div>
+    <div class="actions"><button class="btn sm" id="btnAddInsp" type="button">Adicionar inspetor</button></div>
     <div class="autolbl"><span class="lbl">Identidade visual</span></div>
     <p class="hint">Envie o arquivo oficial do logo da empresa (PNG com fundo transparente funciona melhor). Ele aparece no topo do app, nos PDFs e nos arquivos de inspetor gerados depois do envio.</p>
     <div class="actions"><img class="logoprev" id="logoPrev" alt="Logo atual" hidden=""><span class="filebtn btn sm">Enviar logo da empresa<input type="file" id="fileLogo" accept="image/png,image/jpeg,image/svg+xml,image/webp"></span><button class="btn sm danger" id="btnLogoRm" type="button" hidden="">Remover logo</button></div>
@@ -336,7 +340,7 @@ svg.viz [data-tip]:hover{opacity:.82}
 <div class="toast" id="toast" hidden=""></div>
 <div class="tip" id="tip" hidden=""></div>
 
-<script id="orgcfg" type="application/json">{"perfil":"inspetor","cfg":{"min":80,"crit":"desvio","met":"media"},"logo":{"src":"data:image/png;base64,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","w":200,"h":30},"versao":"BETA","geradoEm":"2026-11-06T19:20:50.097Z"}</script>
+<script id="orgcfg" type="application/json">{"perfil":"inspetor","cfg":{"min":80,"crit":"desvio","met":"media"},"logo":{"src":"data:image/png;base64,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","w":200,"h":30},"inspetores":[{"nome":"Acassio Maximiano Mendonça","cargo":"Eng. Distribuição"},{"nome":"Jose Paulino da Silva Junior","cargo":"Tec. Inspeção Materiais"},{"nome":"Raissa Silva de Oliveira","cargo":"Tec. Inspeção Materiais"}],"versao":"BETA","geradoEm":"2026-11-06T19:55:53.069Z"}</script>
 <script>/** @license
  *
  * jsPDF - PDF Document creation from JavaScript
@@ -751,7 +755,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 "use strict";
 const PRISTINE="<!DOCTYPE html>\n"+document.documentElement.outerHTML;
 let ORG={};try{ORG=JSON.parse(document.getElementById("orgcfg").textContent)||{};}catch(_){}
-if(ORG.perfil!=="inspetor"){try{const a=JSON.parse(localStorage.getItem("rati-org-admin")||"null");if(a){if(a.cfg)ORG.cfg=a.cfg;if("logo" in a)ORG.logo=a.logo;}}catch(_){}}
+if(ORG.perfil!=="inspetor"){try{const a=JSON.parse(localStorage.getItem("rati-org-admin")||"null");if(a){if(a.cfg)ORG.cfg=a.cfg;if("logo" in a)ORG.logo=a.logo;if(Array.isArray(a.inspetores))ORG.inspetores=a.inspetores;}}catch(_){}}
 const VERSAO="BETA";
 /* ===================== QUESTIONÁRIO (edite aqui) ===================== */
 const PESO={C:3,A:1};
@@ -935,7 +939,7 @@ function updResumo(){const C=calc();
   updRegState();return C;}
 function updAuto(){const C=calc();$("#autoRes").innerHTML=blocosHTML(gerarResultado(C));$("#autoCon").innerHTML=blocosHTML(gerarConclusao(C));}
 function metaOk(){return !!(S.meta.empresa&&S.meta.inspetor&&S.meta.dataIni);}
-function renderTudo(){renderMeta();renderSecoes();renderFotos("anexos");
+function renderTudo(){renderMeta();aplicarInspetores();renderSecoes();renderFotos("anexos");
   $("#complemento").value=S.complemento;$("#cfgMin").value=S.cfg.min;$("#cfgCrit").value=S.cfg.crit;$("#cfgMet").value=S.cfg.met;
   $("#startBanner").hidden=!!(S.meta.empresa||Object.values(S.resp).some(r=>r.nota!==null));updResumo();updAuto();}
 
@@ -989,10 +993,10 @@ const isAdm=()=>PERFIL==="admin";
 function aplicarPerfil(){const p=$("#perfil");p.hidden=false;p.textContent=isAdm()?"Administrador":"Inspetor";p.className="perfil"+(isAdm()?" adm":"");
   ["#cfgMin","#cfgCrit","#cfgMet"].forEach(s=>$(s).disabled=!isAdm());
   $("#cfgNote").textContent=isAdm()?"Como administrador, estes critérios vão para os arquivos de inspetor que você gerar no Painel.":"Critérios definidos pelo administrador neste arquivo. Só o perfil Administrador pode alterá-los.";
-  $("#cfgCard").hidden=!isAdm();$("#btnBase").hidden=!isAdm();$("#btnLer").hidden=!FS;updPasta();updRegState();renderDash();}
+  $("#cfgCard").hidden=!isAdm();renderEditorInsp();$("#btnBase").hidden=!isAdm();$("#btnLer").hidden=!FS;updPasta();updRegState();renderDash();}
 function baixar(nome,data,tipo){const b=data instanceof Blob?data:new Blob([data],{type:tipo||"application/octet-stream"}),u=URL.createObjectURL(b),a=document.createElement("a");
   a.href=u;a.download=nome;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000);}
-function salvarOrg(){if(!isAdm())return;try{localStorage.setItem("rati-org-admin",JSON.stringify({cfg:ORG.cfg||null,logo:ORG.logo||null}));}
+function salvarOrg(){if(!isAdm())return;try{localStorage.setItem("rati-org-admin",JSON.stringify({cfg:ORG.cfg||null,logo:ORG.logo||null,inspetores:listaInsp(true)}));}
   catch(_){toast("Não foi possível guardar as configurações neste navegador. Use “Salvar cópia do arquivo de administrador”.");}}
 function gravarCfg(){if(!isAdm())return;ORG.cfg=Object.assign({},S.cfg);salvarOrg();}
 
@@ -1070,7 +1074,7 @@ function aplicarLogo(){const L=ORG.logo&&ORG.logo.src?ORG.logo:null,h=$("#hdrLog
 async function enviarLogo(f){if(!isAdm())return;try{let img=await reduzir(f,640,"image/png");if(img.src.length>300000)img=await reduzir(f,360,"image/png");
   ORG.logo=img;salvarOrg();aplicarLogo();toast("Logo atualizado. Gere de novo o arquivo do inspetor para distribuir.");}catch(_){toast("Não foi possível ler a imagem do logo.");}}
 $("#btnLogoRm").addEventListener("click",()=>{if(!isAdm())return;ORG.logo=null;salvarOrg();aplicarLogo();toast("Logo removido.");});
-function arquivoHTML(perfil){const org={perfil,cfg:Object.assign({},ORG.cfg||S.cfg),logo:ORG.logo||null,versao:VERSAO,geradoEm:new Date().toISOString()};
+function arquivoHTML(perfil){const org={perfil,cfg:Object.assign({},ORG.cfg||S.cfg),logo:ORG.logo||null,inspetores:listaInsp(),versao:VERSAO,geradoEm:new Date().toISOString()};
   const js=JSON.stringify(org).replace(/</g,"\\u003c");
   return PRISTINE.replace(/(<script id="orgcfg" type="application\/json">)[\s\S]*?(<\/script>)/,(m,a,b)=>a+js+b);}
 $("#btnGerarInsp").addEventListener("click",()=>{if(!isAdm())return;baixar("RATI_Digital_Inspetor.html",arquivoHTML("inspetor"),"text/html");toast("Arquivo do inspetor gerado com os critérios e o logo atuais.");});
@@ -1088,6 +1092,27 @@ function pdfNome(){const C=calc(),st={aprovado:"APROVADO",reprovado:"REPROVADO",
   const g=C.geral===null?"0":String(Math.round(C.geral*1000)/10).replace(".",",");
   const sl=(x,n)=>(x||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^A-Za-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,n).replace(/-+$/,"")||"NA";
   return `${sl(S.meta.numero,40)}_${st}_${g}_${S.meta.dataIni||"sem-data"}_${sl(S.meta.empresa,50)}_${sl(S.meta.material,60)}.pdf`;}
+
+/* ===================== LISTA DE INSPETORES ===================== */
+// completos=true devolve também linhas em edição (sem nome), para o editor do administrador
+function listaInsp(completos){const L=Array.isArray(ORG.inspetores)?ORG.inspetores:[];return completos?L.map(x=>({nome:x.nome||"",cargo:x.cargo||""})):L.filter(x=>x&&String(x.nome||"").trim()).map(x=>({nome:String(x.nome).trim(),cargo:String(x.cargo||"").trim()}));}
+const ULT="rati-ultimo-inspetor";
+function aplicarInspetores(){const L=listaInsp(),el=$("#m_inspetor"),cg=$("#m_cargo");if(!el||!cg)return;
+  if(!L.length){cg.readOnly=false;cg.title="";return;}
+  if(!S.meta.inspetor){let u="";try{u=localStorage.getItem(ULT)||"";}catch(_){}const x=L.find(i=>i.nome===u);if(x){S.meta.inspetor=x.nome;S.meta.cargo=x.cargo;cg.value=x.cargo;salvar();}}
+  const cur=S.meta.inspetor,sel=document.createElement("select");sel.id="m_inspetor";sel.dataset.k="inspetor";
+  sel.innerHTML=`<option value="">Selecione o inspetor</option>`+L.map(x=>`<option value="${esc(x.nome)}"${x.nome===cur?" selected":""}>${esc(x.nome)}</option>`).join("")+(cur&&!L.some(x=>x.nome===cur)?`<option value="${esc(cur)}" selected>${esc(cur)} (fora da lista)</option>`:"");
+  el.replaceWith(sel);cg.readOnly=true;cg.title="Preenchido conforme o inspetor escolhido";}
+document.addEventListener("change",e=>{const t=e.target;if(t.id!=="m_inspetor"||t.tagName!=="SELECT")return;
+  const x=listaInsp().find(i=>i.nome===t.value);S.meta.inspetor=t.value;if(x){S.meta.cargo=x.cargo;$("#m_cargo").value=x.cargo;try{localStorage.setItem(ULT,x.nome);}catch(_){}}
+  salvar();updResumo();updAuto();});
+function renderEditorInsp(){const tb=$("#tblInsp");if(!tb)return;const L=listaInsp(true);
+  tb.innerHTML=`<thead><tr><th>Nome</th><th>Cargo</th><th></th></tr></thead><tbody>${L.map((x,i)=>`<tr><td><input type="text" id="insp_n${i}" data-insp="${i}" data-campo="nome" value="${esc(x.nome)}" aria-label="Nome do inspetor ${i+1}"></td><td><input type="text" id="insp_c${i}" data-insp="${i}" data-campo="cargo" value="${esc(x.cargo)}" aria-label="Cargo do inspetor ${i+1}"></td><td class="r"><button class="btn sm danger" type="button" data-rmInsp="${i}">Remover</button></td></tr>`).join("")||`<tr><td colspan="3" class="hint">Nenhum inspetor cadastrado: o campo fica livre para digitar.</td></tr>`}</tbody>`;}
+function refazMeta(){if(document.activeElement&&document.activeElement.closest&&document.activeElement.closest("#metaGrid"))return;renderMeta();aplicarInspetores();}
+document.addEventListener("input",e=>{const t=e.target;if(t.dataset.insp===undefined||!isAdm())return;const L=listaInsp(true);L[+t.dataset.insp][t.dataset.campo]=t.value;ORG.inspetores=L;salvarOrg();refazMeta();});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-rmInsp],#btnAddInsp");if(!b||!isAdm())return;const L=listaInsp(true);
+  if(b.id==="btnAddInsp")L.push({nome:"",cargo:""});else L.splice(+b.getAttribute("data-rmInsp"),1);
+  ORG.inspetores=L;salvarOrg();renderEditorInsp();refazMeta();if(b.id==="btnAddInsp"){const n=$("#insp_n"+(L.length-1));if(n)n.focus();}});
 /* ===================== LINHA DA VISITA (CSV) ===================== */
 const COLS=["id_relatorio","data_inicio","data_fim","ano_mes","inspetor","cargo","fornecedor","cnpj","material","perc_ensaios_rotina","perc_requisitos_fabricacao","perc_estrutura_laboratorio","perc_ensaios_recebimento","resultado_geral","veredito","motivo_reprovacao","qtd_itens_criticos_desvio","itens_criticos_desvio","qtd_itens_abaixo_nota_max","itens_abaixo_nota_max","qtd_itens_na","nota_minima","regra_critico","metodo_geral","qtd_fotos","versao_formulario","registrado_em","atualizado_em"];
 const num=x=>x===null||x===undefined||x===""||isNaN(x)?"":String(Math.round(x*10000)/10000).replace(".",",");
