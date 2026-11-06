@@ -1,5 +1,5 @@
 // RATI Digital - funciona offline. Ao publicar uma nova versão, troque o número abaixo.
-const VERSAO = "rati-beta-1";
+const VERSAO = "rati-beta-2";
 const ARQUIVOS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./apple-touch-icon.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(VERSAO).then(c => c.addAll(ARQUIVOS)).then(() => self.skipWaiting()));
